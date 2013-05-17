@@ -1,5 +1,6 @@
 <application>
   <settings lcdColor="White" lcdBackground="On" />
+  <widget text="Play Musique" function="Nav" />
   <folder text="System Info">
     <widget text="Show Date/Time" function="ShowDateTime" />
     <widget text="Set Date/Time" function="SetDateTime" />

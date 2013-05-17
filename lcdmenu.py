@@ -81,6 +81,69 @@ def LcdTeal():
 def LcdViolet():
     lcd.backlight(lcd.VIOLET)
 
+def ShowMusique():
+    lcd.home()
+    lcd.message(commands.getoutput("mpc current"))
+    cmdip = "ip addr show wlan0 | grep inet | awk '{print $2}' | cut -d/ -f1"
+    cmdstart = "mpc play"
+    cmdrandom = "mpc random on"
+    cmdcurrent = "mpc current"
+    cmdplayall = "mpc listall | mpc add"
+    songplayed2 = "abc"
+    run_cmd(cmdrandom)
+    run_cmd(cmdstart)
+    while not(lcd.buttonPressed(lcd.SELECT)):
+        songplayed = run_cmd(cmdcurrent)
+        if (( songplayed != songplayed2 )):
+            lcd.clear()
+            lcd.message( ( songplayed ) )
+            songplayed2 = songplayed
+            sleep(1)
+        if ( ( songplayed == songplayed2 ) ):
+            if (len(songplayed)>16):
+                lcd.scrollDisplayLeft()
+                sleep(1)
+    sleep(0.50)
+    
+def MpcNav():
+    cmdload = "mpc load old"
+    cmdstop = "mpc volume -8"
+    cmdplay = "mpc volume +8"
+    cmdnext = "mpc next"
+    cmdprev = "mpc prev"
+    cmdclear = "mpc clear"
+    cmdstart = "mpc play"
+    cmdrandom = "mpc random on"
+    cmdplayall = "mpc listall | mpc add"
+    songplayed2 = "abc"
+    b = 0
+    prev = -1
+    while not(lcd.buttonPressed(lcd.SELECT)):
+        if lcd.buttonPressed(lcd.RIGHT):
+            if b is not prev:
+                run_cmd(cmdnext)
+                sleep(0.50)
+        if lcd.buttonPressed(lcd.UP):
+            if b is not prev:
+                run_cmd(cmdplay)
+                sleep(0.50)
+        if lcd.buttonPressed(lcd.DOWN):
+            if b is not prev:
+                run_cmd(cmdstop)
+                sleep(0.50)
+        if lcd.buttonPressed(lcd.LEFT):
+            if b is not prev:
+                run_cmd(cmdprev)
+                sleep(0.50)
+
+
+def Nav():
+    a = threading.Thread(None, MpcNav, None, (), {})
+    a.start()
+    ShowMusique()
+#        if (lcd.buttonPressed(lcd.SELECT)):
+#            a._Thread__stop()
+
 def ShowDateTime():
     if DEBUG:
         print('in ShowDateTime')

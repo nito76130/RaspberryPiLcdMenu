@@ -13,6 +13,9 @@ from Adafruit_I2C import Adafruit_I2C
 from Adafruit_MCP230xx import Adafruit_MCP230XX
 from Adafruit_CharLCDPlate import Adafruit_CharLCDPlate
 from ListSelector import ListSelector
+import threading
+from subprocess import *
+
 
 import smbus
 
@@ -80,6 +83,12 @@ def LcdTeal():
 
 def LcdViolet():
     lcd.backlight(lcd.VIOLET)
+    
+def run_cmd(cmdip):
+    p = Popen(cmdip, shell=True, stdout=PIPE)
+    output = p.communicate()[0]
+    return output
+
 
 def ShowMusique():
     lcd.home()

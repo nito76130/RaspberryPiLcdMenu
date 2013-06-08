@@ -28,8 +28,8 @@ DISPLAY_COLS = 16
 # set busnum param to the correct value for your pi
 lcd = Adafruit_CharLCDPlate(busnum = 1)
 # in case you add custom logic to lcd to check if it is connected (useful)
-if lcd.connected == 0:
-    quit()
+#if lcd.connected == 0:
+ #   quit()
 
 lcd.begin(DISPLAY_COLS, DISPLAY_ROWS)
 lcd.backlight(lcd.OFF)

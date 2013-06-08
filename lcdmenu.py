@@ -29,7 +29,7 @@ DISPLAY_COLS = 16
 lcd = Adafruit_CharLCDPlate(busnum = 1)
 # in case you add custom logic to lcd to check if it is connected (useful)
 if lcd.connected == 0:
-quit()
+    quit()
 
 lcd.begin(DISPLAY_COLS, DISPLAY_ROWS)
 lcd.backlight(lcd.OFF)
